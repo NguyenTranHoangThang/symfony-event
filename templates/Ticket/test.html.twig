@@ -1,0 +1,15 @@
+{% extends 'master.html.twig' %}
+{% block content %}
+    <div class="container">
+
+        {{ form_start(form , {'action': path('tests'), 'method': 'POST'}) }}
+        {{ form_row(form.name) }}
+{#        {{  form_widget(form.name) }}#}
+        <div>
+            {{ form_widget(form.description, { 'id': 'description' }) }}
+            {{ form_widget(form.description, { 'id': 'description' }) }}
+        </div>
+        {{ form_widget(form.description, { 'id': 'description' }) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

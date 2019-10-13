@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  php:
+    build:
+      context: .
+      dockerfile: docker/build/php/Dockerfile
+    ports:
+      - "8100:80"
+    volumes:
+      - .:/var/www/html
+    networks:
+      - backend
+  # Configure the database
+  mysql:
+    image: mysql:5.7
+    environment:
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
+#        - MYSQL_ROOT_PASSWORD=12345678
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+
+  # Configure Apache
+#  apache:
+##    build: docker/build/apache
+#    build:
+#      context: .
+#      dockerfile: docker/build/apache/Dockerfile
+#    ports:
+#      - "8100:80"
+
+networks:
+   backend :
+     driver: "bridge"

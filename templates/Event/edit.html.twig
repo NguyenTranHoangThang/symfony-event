@@ -1,0 +1,54 @@
+{% extends 'master.html.twig' %}
+{% block content %}
+    <div class="container">
+        <form action="{{ path('update_event',{'id' : event.id}) }}" method="POST" enctype="multipart/form-data"
+              style="border: 1px solid black"
+              class="col-sm-10 mt-5 mx-auto">
+            <input type="hidden" name="_method" value="put" />
+            {% if errors is defined %}
+                {% for error in errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error.message   }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <h5>Edit Event</h5>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4"><label for="name">Name</label></div>
+                    <div class="col-sm-8"><input type="text" name="name" id="name" value="{{ event.name }}"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"><label for="image">Image</label></div>
+                    <div class="col-sm-8"><input type="file" name="image" id="image"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"><label for="description">Description</label></div>
+{#                    <div class="col-sm-8"><input type="text" name="description" id="description" value="{{ event.description }}"></div>#}
+                    <textarea id="description" name="description" >{{ event.description }}</textarea>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"><label for="start_at">Start At</label></div>
+                    <div class="col-sm-8"><input type="datetime-local" name="start_at" id="start_at" value="{{ event.StartAt|date('Y-m-d\\TH:m') }}"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"><label for="end_at">End at</label></div>
+                    <div class="col-sm-8"><input type="datetime-local" name="end_at" id="end_at" value="{{  event.EndAt|date('Y-m-d\\TH:m') }}"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"><label for="location">Location</label></div>
+                    <div class="col-sm-8"><input type="text" name="location" id="location" value="{{ event.location }}"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10"></div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-success m-2">Update</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </form>
+    </div>
+{% endblock %}

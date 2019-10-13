@@ -1,0 +1,64 @@
+{% extends 'master.html.twig' %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <h4>Event's info</h4>
+            <div class="col-sm-12 border border-primary rounded" style="position: relative;">
+                <div class="event-actions">
+                    <a class="btn btn-warning btn-sm rounded-circle custom-button" href="{{ path('edit_event',{'id' : event.id})}}"><i class="fas fa-edit"></i></a>
+                    <form action="{{ path('delete_event',{'id' : event.id}) }}" method="POST" style="display: inline">
+                        <input type="hidden" name="_method" value="delete" />
+                        <button class="btn btn-danger btn-sm rounded-circle custom-button" type="submit" ><i class="fas fa-trash"></i></button>
+                    </form>
+                    {#                            <a href="{{ path('delete_event',{'id' : event.id})}}"><i class="fas fa-trash"></i></a>#}
+                </div>
+                <h5>{{ event.name }}</h5>
+                <div style="width: 100%;height: auto">
+                    {#                            {% set image_link =  %}#}
+                    <img src="{{ asset('event/' ~ event.ImageLink) }}" alt="" class="event-image img-responsive">
+                </div>
+                Description : <br>
+                <div class="border p-3 rounded">{{ event.description|raw }}</div>
+                <br>
+                Start at : {{ event.StartAt|date('Y-m-d h:i a') }} -- End At :
+                {{ event.EndAt|date('Y-m-d h:i a') }}<br>
+                Location : {{ event.location }}<br>
+                Nums of ticket(s) : {{ event.NumsOfTicket }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12 mb-2">
+                <h4>Ticket</h4>
+                <div class="row">
+                    {% for ticket in tickets %}
+                        <div class="col-sm-6 my-1">
+                            <div class="col-sm-12 ticket border border-info rounded">
+                                <div class="ticket_action">
+                                    <a class="btn btn-outline-warning btn-sm rounded-circle custom-button" href="{{ path('edit_ticket',{'id' : ticket.id})}}"><i class="fas fa-edit"></i></a>
+                                    <form action="{{ path('delete_ticket',{'id' : ticket.id}) }}" method="POST" style="display: inline">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <button class="btn btn-outline-danger btn-sm rounded-circle" type="submit"><i
+                                                    class="fas fa-trash"></i></button>
+                                    </form>
+                                </div>
+                                <h6>{{ ticket.name }} </h6>
+                                Price : {{ ticket.price|number_format(2,'.',',') }}$<br>
+                                Description :
+                                <div class="ml-2 border border-secondary rounded" style="border: 1px solid black">{{ ticket.description|raw }} </div><br>
+                                Nums of ticket(s) : {{ ticket.NumsOfTicket }}<br>
+                                Start at : {{ ticket.StartAt|date('Y-m-d h:i a') }} -- End At :
+                                {{ ticket.EndAt|date('Y-m-d h:i a') }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-3 m-auto">
+                <a class="btn btn-success bln-block m-5" href="{{ path('create_new_ticket',{'id': event.id}) }}">Create new ticket
+                    <ticketx></ticketx>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
