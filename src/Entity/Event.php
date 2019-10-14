@@ -46,12 +46,6 @@ class Event
     private $end_at;
 
     /**
-     * @Assert\NotBlank(
-     *     message = "Event's number of ticket(s) should not be blank."
-     * )
-     * @Assert\Positive(
-     *     message = "Event's number of ticket(s) should be positive."
-     * )
      * @ORM\Column(type="integer" , options={"default":0})
      */
     private $nums_of_ticket;
