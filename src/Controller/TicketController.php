@@ -20,8 +20,9 @@ class TicketController extends AbstractController
      */
     public function create($id)
     {
+        $event = $this->getDoctrine()->getRepository(Event::class)->find($id);
         return $this->render('Ticket/new.html.twig',[
-            'event_id' => $id
+            'event' => $event
         ]);
     }
     /**
